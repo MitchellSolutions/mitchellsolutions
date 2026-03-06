@@ -374,36 +374,6 @@
 
   .footer a { color: var(--accent); text-decoration: none; }
 
-  /* Success page — shown after redirect */
-  .confirmation {
-    display: none;
-    text-align: center;
-    padding: 80px 24px;
-    animation: fadeUp 0.5s ease both;
-  }
-
-  .confirmation.active { display: block; }
-
-  .conf-icon { font-size: 40px; margin-bottom: 24px; display: block; }
-
-  .confirmation h2 {
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    margin-bottom: 12px;
-  }
-
-  .confirmation h2 em { font-style: normal; color: var(--accent); }
-
-  .confirmation p {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.8;
-    max-width: 440px;
-    margin: 0 auto;
-  }
-
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(16px); }
     to { opacity: 1; transform: translateY(0); }
@@ -427,38 +397,20 @@
     <p class="header-sub">Before I build anything, I need to understand what you're actually trying to solve. Complete this form honestly — the more detail you give, the better the outcome.</p>
   </div>
 
-  <!-- Show confirmation if redirected back with ?success -->
-  <div class="confirmation" id="confirmation">
-    <span class="conf-icon">🙏</span>
-    <h2>Got it.<br><em>Thank you.</em></h2>
-    <div class="divider"></div>
-    <p>Your scoping form has been received. If your project looks like a good fit, you'll hear back within 2 business days. If you don't hear anything, it means it's not the right match — no hard feelings.</p>
-  </div>
-
   <div id="formWrap">
 
     <div class="notice">
       <strong>Serious enquiries only.</strong> This form exists to protect both parties. Incomplete or vague submissions won't be progressed. A 50% deposit is required before any work begins — this is non-negotiable and is how all projects are structured.
     </div>
 
-    <!--
-      Netlify Forms:
-      - name="scoping" tells Netlify what to call this form in your dashboard
-      - netlify attribute enables Netlify form detection
-      - netlify-honeypot="bot-field" adds spam protection
-      - action="/ai-project-scoping.html?success" redirects back here after submit
-        and we show the confirmation message via JS
-    -->
     <form
       name="scoping"
       method="POST"
       data-netlify="true"
       netlify-honeypot="bot-field"
-      action="/success"
+      action="/success.html"
     >
-      <!-- Hidden field for Netlify -->
       <input type="hidden" name="form-name" value="scoping">
-      <!-- Honeypot spam trap — hidden from humans -->
       <p style="display:none;">
         <label>Don't fill this out: <input name="bot-field"></label>
       </p>
@@ -689,11 +641,10 @@
   </div>
 
   <div class="footer">
-    <p>mitchellsolutions.org &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection#1c74797070735c7175687f747970706f737069687573726f32736e7b"><span class="__cf_email__" data-cfemail="93fbf6fffffcd3fefae7f0fbf6ffffe0fcffe6e7fafcfde0bdfce1f4">[email&#160;protected]</span></a></p>
+    <p>mitchellsolutions.org &nbsp;·&nbsp; <a href="mailto:hello@mitchellsolutions.org">hello@mitchellsolutions.org</a></p>
   </div>
 
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Show confirmation message if redirected back with ?success in the URL
-  if (wind
+</body>
+</html>

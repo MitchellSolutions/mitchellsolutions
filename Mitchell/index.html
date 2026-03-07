@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitchell Solutions - AI Tools & Development</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --midnight: #0A0E1A;
+            --deep-navy: #111827;
+            --slate: #1E293B;
+            --steel: #334155;
+            --silver: #64748B;
+            --ice: #94A3B8;
+            --frost: #CBD5E1;
+            --white: #F8FAFC;
+            --electric-blue: #3B82F6;
+            --cyan: #06B6D4;
+            --teal: #14B8A6;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: var(--midnight);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated gradient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.06) 0%, transparent 50%);
+            animation: drift 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(5%, 5%) rotate(5deg); }
+        }
+
+        /* Grid overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--steel);
+            border-radius: 4px;
+            background: rgba(17, 24, 39, 0.5);
+            backdrop-filter: blur(10px);
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero */
+        .hero {
+            padding: 8rem 0 6rem;
+            position: relative;
+        }
+
+        .hero-eyebrow {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--electric-blue);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.3s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1.1;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--white) 0%, var(--ice) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtext {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--ice);
+            max-width: 700px;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.7s forwards;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--electric-blue);
+            color: var(--midnight);
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.9s forwards;
+        }
+
+        .hero-cta:hover {
+            background: var(--cyan);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Product showcase */
+        .product-grid {
+            padding: 6rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid var(--steel);
+            border-radius: 12px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--electric-blue), var(--cyan));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--electric-blue);
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.15);
+        }
+
+        .product-tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--cyan);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .product-card h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .product-card p {
+            color: var(--ice);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .product-link {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--electric-blue);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .product-link:hover {
+            gap: 1rem;
+        }
+
+        /* About section */
+        .about {
+            padding: 6rem 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .about h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--white) 0%, var(--silver) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about p {
+            font-size: 1.2rem;
+            color: var(--ice);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            line-height: 1.9;
+        }
+
+        .credentials {
+            display: flex;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .credential-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 6px;
+        }
+
+        .credential-icon {
+            font-size: 1.5rem;
+        }
+
+        .credential-text {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--frost);
+        }
+
+        /* Services */
+        .services {
+            padding: 6rem 0;
+            background: rgba(17, 24, 39, 0.3);
+            margin: 4rem 0;
+            border-top: 1px solid var(--steel);
+            border-bottom: 1px solid var(--steel);
+        }
+
+        .services h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .service-item {
+            text-align: center;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .service-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .service-item p {
+            color: var(--ice);
+            line-height: 1.8;
+        }
+
+        /* Contact CTA */
+        .contact-cta {
+            padding: 8rem 0;
+            text-align: center;
+        }
+
+        .contact-cta h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-cta p {
+            font-size: 1.2rem;
+            color: var(--ice);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1.25rem 2.5rem;
+            background: transparent;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 2px solid var(--electric-blue);
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-button:hover {
+            background: var(--electric-blue);
+            color: var(--midnight);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--steel);
+        }
+
+        footer p {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--silver);
+            letter-spacing: 0.05em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 4rem 0 3rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .credentials {
+                flex-direction: column;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Mitchell Solutions</div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-eyebrow">AI Product Builder</div>
+                <h1>Building AI tools<br>that actually work.</h1>
+                <p class="hero-subtext">Designing and developing AI-powered products for marketing and business professionals. Live products in production.<br>Select client work available.</p>
+                <a href="#contact" class="hero-cta">
+                    Get in Touch
+                    <span>→</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="product-grid">
+            <div class="container">
+                <div class="product-card">
+                    <span class="product-tag">Live Product</span>
+                    <h2>ThreadKiller AI</h2>
+                    <p>Turn email threads into instant clarity. Paste any email thread and get key decisions, action items, unresolved questions, and a one-sentence summary in 30 seconds. <u>No inbox access required.</u></p>
+                    <a href="https://usethreadkiller.com" class="product-link" target="_blank">
+                        Explore ThreadKiller
+                        <span>→</span>
+                    </a>
+                </div>
+
+                <div class="product-card">
+                    <span class="product-tag">Coming Soon</span>
+                    <h2>AI Readiness Audit</h2>
+                    <p>Instant automated assessment showing businesses their AI readiness score across key dimensions. No consultants, no meetings, just clear, actionable insights delivered in minutes.</p>
+                    <span class="product-link" style="opacity: 0.5; cursor: default;">
+                        In Development
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <section class="about">
+            <div class="container">
+                <h2>Focused on execution not hype.</h2>
+                <p>I'm Jessica Mitchell, an AI product builder based in the UK.</p>
+                <p>I design and develop AI-powered tools that solve real problems for real people.</p>
+                <p>My approach is simple: identify a genuine pain point, build a solution that works, ship it live, and iterate based on real user feedback.<br>No endless pitches, no vapourware, just working products.</p>
+                <div class="credentials">
+                    <div class="credential-item">
+                        <span class="credential-icon">✓</span>
+                        <span class="credential-text">Certified: Generative AI Mastermind</span>
+                    </div>
+                    <div class="credential-item">
+                        <span class="credential-icon">⚡</span>
+                        <span class="credential-text">Live AI Products in Production</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="services">
+            <div class="container">
+                <h2>Select AI Development Work</h2>
+                <div class="services-grid">
+                    <div class="service-item">
+                        <span class="service-icon">🔧</span>
+                        <h3>AI Tool Development</h3>
+                        <p>Custom AI-powered applications tailored to your specific business needs.<br>From concept to production deployment.</p>
+                    </div>
+                    <div class="service-item">
+                        <span class="service-icon">🤖</span>
+                        <h3>AI Integration</h3>
+                        <p>Integrate AI capabilities into your existing workflows, tools, and platforms for enhanced productivity.</p>
+                    </div>
+                    <div class="service-item">
+                        <span class="service-icon">💡</span>
+                        <h3>Product Strategy</h3>
+                        <p>Identify opportunities where AI can solve real problems in your business, not just add buzzwords to your marketing.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-cta" id="contact">
+            <div class="container">
+                <h2>Let's Talk</h2>
+                <p>Taking on select AI development projects and consulting work.<br>Serious Enquiries Only.</p>
+                <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1rem;">
+                <a href="/ai-project-scoping.html" class="contact-button" style="border-color:var(--cyan);color:var(--cyan);">
+                    Start a Project
+                    <span>→</span>
+                </a>
+                </div>
+                <a href="mailto:hello@mitchellsolutions.org" class="contact-button">
+                    hello@mitchellsolutions.org
+                    <span>→</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <di

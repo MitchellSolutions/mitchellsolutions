@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mitchell Solutions — AI Project Scoping</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a1020;
+    --surface: #111318;
+    --surface2: #161820;
+    --border: #1e2128;
+    --border-active: #2e8b57;
+    --accent: #2e8b57;
+    --accent-dim: rgba(46,139,87,0.12);
+    --accent-glow: rgba(46,139,87,0.06);
+    --text: #e8eaed;
+    --muted: #6b7280;
+    --label: #9ca3af;
+    --mono: 'DM Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding: 60px 24px 100px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(46,139,87,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(46,139,87,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(46,139,87,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 64px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .logo-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    padding: 6px 14px;
+    border: 1px solid rgba(46,139,87,0.3);
+    border-radius: 2px;
+    background: var(--accent-dim);
+  }
+
+  h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    margin-bottom: 16px;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .header-sub {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    margin: 28px auto;
+  }
+
+  .notice {
+    background: var(--accent-dim);
+    border: 1px solid rgba(46,139,87,0.25);
+    border-left: 3px solid var(--accent);
+    padding: 14px 20px;
+    margin-bottom: 48px;
+    border-radius: 0 4px 4px 0;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--label);
+    line-height: 1.7;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .notice strong { color: var(--accent); font-weight: 500; }
+
+  .section {
+    margin-bottom: 40px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--surface);
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .section:nth-child(2) { animation-delay: 0.05s; }
+  .section:nth-child(3) { animation-delay: 0.1s; }
+  .section:nth-child(4) { animation-delay: 0.15s; }
+  .section:nth-child(5) { animation-delay: 0.2s; }
+  .section:nth-child(6) { animation-delay: 0.25s; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    background: var(--accent-dim);
+    border: 1px solid rgba(46,139,87,0.2);
+    padding: 3px 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .section-body {
+    padding: 28px 24px;
+    display: grid;
+    gap: 22px;
+  }
+
+  .field { display: flex; flex-direction: column; gap: 8px; }
+
+  .field-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .field-label .req { color: var(--accent); font-size: 14px; line-height: 1; }
+
+  .field-hint {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #4b5563;
+    font-style: italic;
+    margin-top: -4px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="url"],
+  textarea,
+  select {
+    background: #0d0e11;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 12px 16px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+
+  textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    cursor: pointer;
+  }
+
+  select option { background: #111318; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+
+  .check-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    background: #0d0e11;
+  }
+
+  .check-item:hover {
+    border-color: rgba(46,139,87,0.4);
+    background: var(--accent-glow);
+  }
+
+  .check-item input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    accent-color: var(--accent);
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .check-item label {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--label);
+    cursor: pointer;
+    line-height: 1.4;
+  }
+
+  .terms-box {
+    background: #0d0e11;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .terms-box ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .terms-box li::before { content: '▸ '; color: var(--accent); }
+  .terms-box strong { color: var(--label); }
+
+  .agree-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    border: 1px solid rgba(46,139,87,0.2);
+    background: var(--accent-dim);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .agree-row input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    margin-top: 2px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .agree-row label {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--label);
+    line-height: 1.6;
+    cursor: pointer;
+  }
+
+  .agree-row label strong { color: var(--accent); }
+
+  .submit-wrap {
+    text-align: center;
+    margin-top: 48px;
+    animation: fadeUp 0.5s 0.3s ease both;
+  }
+
+  button[type="submit"] {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #0a0b0e;
+    background: var(--accent);
+    border: none;
+    padding: 18px 56px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 0 30px rgba(46,139,87,0.25);
+  }
+
+  button[type="submit"]:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 0 40px rgba(46,139,87,0.35);
+  }
+
+  button[type="submit"]:active { transform: translateY(0); }
+  button[type="submit"]:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .submit-note {
+    margin-top: 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 72px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #374151;
+    letter-spacing: 0.08em;
+    animation: fadeUp 0.5s 0.4s ease both;
+  }
+
+  .footer a { color: var(--accent); text-decoration: none; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 580px) {
+    .two-col { grid-template-columns: 1fr; }
+    .check-group { grid-template-columns: 1fr; }
+    h1 { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="logo-tag">Mitchell Solutions</div>
+    <h1>AI Project<br><em>Scoping Form</em></h1>
+    <div class="divider"></div>
+    <p class="header-sub">Before I build anything, I need to understand what you're actually trying to solve. Complete this form honestly — the more detail you give, the better the outcome.</p>
+  </div>
+
+  <div id="formWrap">
+
+    <div class="notice">
+      <strong>Serious enquiries only.</strong> This form exists to protect both parties. Incomplete or vague submissions won't be progressed. A 50% deposit is required before any work begins — this is non-negotiable and is how all projects are structured.
+    </div>
+
+    <form
+      name="scoping"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      action="https://mitchellsolutions.org/success.html"
+    >
+      <input type="hidden" name="form-name" value="scoping">
+      <p style="display:none;">
+        <label>Don't fill this out: <input name="bot-field"></label>
+      </p>
+
+      <!-- Section 1 -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-num">01</span>
+          <span class="section-title">About You</span>
+        </div>
+        <div class="section-body">
+          <div class="two-col">
+            <div class="field">
+              <div class="field-label">Full Name <span class="req">*</span></div>
+              <input type="text" name="full-name" placeholder="Your full name" required>
+            </div>
+            <div class="field">
+              <div class="field-label">Company / Trading Name</div>
+              <input type="text" name="company" placeholder="If applicable">
+            </div>
+          </div>
+          <div class="two-col">
+            <div class="field">
+              <div class="field-label">Email Address <span class="req">*</span></div>
+              <input type="email" name="email" placeholder="your@email.com" required>
+            </div>
+            <div class="field">
+              <div class="field-label">Industry / Sector <span class="req">*</span></div>
+              <input type="text" name="industry" placeholder="e.g. Recruitment, Legal, Property" required>
+            </div>
+          </div>
+          <div class="field">
+            <div class="field-label">How did you find Mitchell Solutions?</div>
+            <select name="referral-source">
+              <option value="" disabled selected>Select one</option>
+              <option>LinkedIn</option>
+              <option>Referral / Word of mouth</option>
+              <option>Product Hunt</option>
+              <option>ThreadKiller AI</option>
+              <option>Google Search</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2 -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-num">02</span>
+          <span class="section-title">The Project</span>
+        </div>
+        <div class="section-body">
+          <div class="field">
+            <div class="field-label">What problem are you trying to solve? <span class="req">*</span></div>
+            <div class="field-hint">Describe the actual business pain, not the solution you think you want.</div>
+            <textarea name="problem" placeholder="e.g. We lose track of decisions made over email and it's costing us client relationships..." required></textarea>
+          </div>
+          <div class="field">
+            <div class="field-label">What does success look like? <span class="req">*</span></div>
+            <div class="field-hint">Describe the outcome in plain language — what will be different when this is done?</div>
+            <textarea name="success-definition" placeholder="e.g. Our team can see what was agreed in any thread within 30 seconds without searching..." required></textarea>
+          </div>
+          <div class="field">
+            <div class="field-label">What type of project is this? <span class="req">*</span></div>
+            <div class="check-group">
+              <div class="check-item"><input type="checkbox" name="project-type" value="Custom AI tool / SaaS" id="c1"><label for="c1">Custom AI tool / SaaS</label></div>
+              <div class="check-item"><input type="checkbox" name="project-type" value="White label product" id="c2"><label for="c2">White label product</label></div>
+              <div class="check-item"><input type="checkbox" name="project-type" value="API / integration build" id="c3"><label for="c3">API / integration build</label></div>
+              <div class="check-item"><input type="checkbox" name="project-type" value="Workflow automation" id="c4"><label for="c4">Workflow automation</label></div>
+              <div class="check-item"><input type="checkbox" name="project-type" value="Chatbot / assistant" id="c5"><label for="c5">Chatbot / assistant</label></div>
+              <div class="check-item"><input type="checkbox" name="project-type" value="Data processing / analysis" id="c6"><label for="c6">Data processing / analysis</label></div>
+              <div class="check-item"><input type="checkbox" name="project-type" value="Copywriting / content AI" id="c7"><label for="c7">Copywriting / content AI</label></div>
+              <div class="check-item"><input type="checkbox" name="project-type" value="Other" id="c8"><label for="c8">Other — explain below</label></div>
+            </div>
+          </div>
+          <div class="field">
+            <div class="field-label">Any additional context on the project type</div>
+            <textarea name="project-type-notes" placeholder="Only needed if you selected 'Other' or want to expand on the above..." style="min-height:70px;"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3 -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-num">03</span>
+          <span class="section-title">Technical Requirements</span>
+        </div>
+        <div class="section-body">
+          <div class="field">
+            <div class="field-label">Do you have any existing systems this needs to connect to?</div>
+            <div class="field-hint">CRMs, databases, email platforms, APIs, internal tools — list anything relevant.</div>
+            <textarea name="existing-systems" placeholder="e.g. Salesforce CRM, Gmail, our internal PostgreSQL database..." style="min-height:70px;"></textarea>
+          </div>
+          <div class="two-col">
+            <div class="field">
+              <div class="field-label">Data sensitivity level <span class="req">*</span></div>
+              <select name="data-sensitivity" required>
+                <option value="" disabled selected>Select one</option>
+                <option>Low — general business data only</option>
+                <option>Medium — some client / staff data</option>
+                <option>High — legal, financial or medical data</option>
+                <option>Unsure — needs discussion</option>
+              </select>
+            </div>
+            <div class="field">
+              <div class="field-label">Hosting preference</div>
+              <select name="hosting-preference">
+                <option value="" disabled selected>Select one</option>
+                <option>Cloud hosted (Netlify / Vercel / similar)</option>
+                <option>Self-hosted on our own infrastructure</option>
+                <option>No preference</option>
+                <option>Unsure — needs discussion</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <div class="field-label">Do you have a domain / branding already?</div>
+            <div class="field-hint">If this will be white labelled or publicly branded, include the domain if you have one.</div>
+            <input type="url" name="existing-domain" placeholder="https://yourdomain.com (optional)">
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 4 -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-num">04</span>
+          <span class="section-title">Timeline & Budget</span>
+        </div>
+        <div class="section-body">
+          <div class="two-col">
+            <div class="field">
+              <div class="field-label">When do you need this? <span class="req">*</span></div>
+              <select name="timeline" required>
+                <option value="" disabled selected>Select one</option>
+                <option>As soon as possible</option>
+                <option>Within 4 weeks</option>
+                <option>Within 2 months</option>
+                <option>Within 6 months</option>
+                <option>No hard deadline</option>
+              </select>
+            </div>
+            <div class="field">
+              <div class="field-label">Budget range <span class="req">*</span></div>
+              <select name="budget" required>
+                <option value="" disabled selected>Select one</option>
+                <option>Under £1,000</option>
+                <option>£1,000 – £3,000</option>
+                <option>£3,000 – £7,500</option>
+                <option>£7,500 – £15,000</option>
+                <option>£15,000+</option>
+                <option>Prefer to discuss</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <div class="field-label">Is this a one-off build or ongoing work?</div>
+            <select name="engagement-type">
+              <option value="" disabled selected>Select one</option>
+              <option>One-off build only</option>
+              <option>Build + ongoing maintenance</option>
+              <option>Ongoing retainer / development partnership</option>
+              <option>Unsure at this stage</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 5 -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-num">05</span>
+          <span class="section-title">Expectations & Fit</span>
+        </div>
+        <div class="section-body">
+          <div class="field">
+            <div class="field-label">Have you worked with a developer or AI builder before?</div>
+            <select name="prior-experience">
+              <option value="" disabled selected>Select one</option>
+              <option>Yes — and it went well</option>
+              <option>Yes — and it didn't go well</option>
+              <option>No — this is my first time</option>
+            </select>
+          </div>
+          <div class="field">
+            <div class="field-label">What went wrong last time? <span style="color:#4b5563;font-size:10px;">(if applicable)</span></div>
+            <div class="field-hint">Honest answers here help avoid repeating the same issues.</div>
+            <textarea name="prior-issues" placeholder="e.g. Unclear scope, missed deadlines, poor communication..." style="min-height:70px;"></textarea>
+          </div>
+          <div class="field">
+            <div class="field-label">Anything else I should know?</div>
+            <textarea name="additional-context" placeholder="Constraints, sensitivities, stakeholders, internal politics — anything relevant..." style="min-height:70px;"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 6 -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-num">06</span>
+          <span class="section-title">Terms of Engagement</span>
+        </div>
+        <div class="section-body">
+          <div class="terms-box">
+            <ul>
+              <li><strong>50% deposit required</strong> before any work begins, no exceptions.</li>
+              <li><strong>Scope is agreed in writing</strong> before the build starts. Changes outside that scope are quoted separately.</li>
+              <li><strong>Timelines are estimates</strong> unless a fixed deadline is agreed and priced accordingly.</li>
+              <li><strong>Confidentiality is mutual</strong> — your project details stay private. Mitchell Solutions retains the right to reference the project type (not specifics) in portfolio materials unless you request otherwise.</li>
+              <li><strong>This form is not a contract</strong> — it is a scoping tool. A formal agreement will follow if we proceed.</li>
+            </ul>
+          </div>
+          <label class="agree-row">
+            <input type="checkbox" name="agreed-to-terms" value="yes" required id="agreeCheck">
+            <span>I have read the terms above and understand that a <strong>50% deposit</strong> is required before work begins. I confirm that my enquiry is genuine and the information I've provided is accurate.</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="submit-wrap">
+        <button type="submit">Submit Scoping Form</button>
+        <p class="submit-note">You'll hear back within 2 business days.</p>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="footer">
+    <p>mitchellsolutions.org &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection#0b636e6767644b66627f68636e67677864677e7f626465782564796c"><span class="__cf_em

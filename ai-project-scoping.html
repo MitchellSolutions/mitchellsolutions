@@ -94,10 +94,7 @@
     margin-bottom: 16px;
   }
 
-  h1 em {
-    font-style: normal;
-    color: var(--accent);
-  }
+  h1 em { font-style: normal; color: var(--accent); }
 
   .header-sub {
     font-family: var(--mono);
@@ -374,6 +371,34 @@
 
   .footer a { color: var(--accent); text-decoration: none; }
 
+  .confirmation {
+    display: none;
+    text-align: center;
+    padding: 80px 24px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .confirmation.active { display: block; }
+  .conf-icon { font-size: 40px; margin-bottom: 24px; display: block; }
+
+  .confirmation h2 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+
+  .confirmation h2 em { font-style: normal; color: var(--accent); }
+
+  .confirmation p {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(16px); }
     to { opacity: 1; transform: translateY(0); }
@@ -397,6 +422,13 @@
     <p class="header-sub">Before I build anything, I need to understand what you're actually trying to solve. Complete this form honestly — the more detail you give, the better the outcome.</p>
   </div>
 
+  <div class="confirmation" id="confirmation">
+    <span class="conf-icon">🙏</span>
+    <h2>Got it.<br><em>Thank you.</em></h2>
+    <div class="divider"></div>
+    <p>Your scoping form has been received. If your project looks like a good fit, you'll hear back within 2 business days. If you don't hear anything, it means it's not the right match — no hard feelings.</p>
+  </div>
+
   <div id="formWrap">
 
     <div class="notice">
@@ -408,7 +440,7 @@
       method="POST"
       data-netlify="true"
       netlify-honeypot="bot-field"
-      action="/success.html"
+      id="scopingForm"
     >
       <input type="hidden" name="form-name" value="scoping">
       <p style="display:none;">
@@ -645,6 +677,32 @@
   </div>
 
 </div>
+
+<script>
+  const form = document.getElementById('scopingForm');
+  const formWrap = document.getElementById('formWrap');
+  const confirmation = document.getElementById('confirmation');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const data = new FormData(form);
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(data).toString()
+    })
+    .then(function() {
+      formWrap.style.display = 'none';
+      confirmation.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    })
+    .catch(function(error) {
+      alert('Something went wrong. Please try again.');
+    });
+  });
+</script>
 
 </body>
 </html>

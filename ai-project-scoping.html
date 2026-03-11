@@ -416,8 +416,6 @@
 
 <div class="container">
 
-  <!-- Formspree handles submissions -->
-
   <div class="header">
     <div class="logo-tag">Mitchell Solutions</div>
     <h1>AI Project<br><em>Scoping Form</em></h1>
@@ -675,7 +673,7 @@
 
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   const form = document.getElementById('scopingForm');
   const formWrap = document.getElementById('formWrap');
   const confirmation = document.getElementById('confirmation');
@@ -683,12 +681,33 @@
   form.addEventListener('submit', function(e) {
     e.preventDefault();
 
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
     const data = new FormData(form);
 
-    fetch('/', {
+    fetch('https://formspree.io/f/mpqydlvb', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(data).toString()
+      body: data,
+      headers: { 'Accept': 'application/json' }
     })
-    .then(function() {
-      formWr
+    .then(function(response) {
+      if (response.ok) {
+        formWrap.style.display = 'none';
+        confirmation.style.display = 'block';
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Scoping Form';
+        alert('Something went wrong. Please try again.');
+      }
+    })
+    .catch(function() {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Scoping Form';
+      alert('Something went wrong. Please try again.');
+    });
+  });
+</script>
+</body>
+</html>

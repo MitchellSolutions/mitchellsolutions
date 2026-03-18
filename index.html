@@ -47,12 +47,17 @@
         .credential-icon { font-size: 1.5rem; }
         .credential-text { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: var(--frost); }
         .services { padding: 6rem 0; background: rgba(17, 24, 39, 0.3); margin: 4rem 0; border-top: 1px solid var(--steel); border-bottom: 1px solid var(--steel); }
-        .services h2 { font-family: 'DM Serif Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 4rem; text-align: center; }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; }
+        .services h2 { font-family: 'DM Serif Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1.5rem; text-align: center; }
+        .services-intro { font-size: 1.2rem; color: var(--ice); text-align: center; max-width: 700px; margin: 0 auto 3rem; font-weight: 300; line-height: 1.8; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; margin-bottom: 4rem; }
         .service-item { text-align: center; }
         .service-icon { font-size: 3rem; margin-bottom: 1.5rem; display: block; }
         .service-item h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--white); }
         .service-item p { color: var(--ice); line-height: 1.8; }
+        .scoping-callout { background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 12px; padding: 3rem; text-align: center; max-width: 700px; margin: 0 auto; }
+        .scoping-callout p { color: var(--ice); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1rem; font-weight: 300; }
+        .scoping-callout p:last-of-type { margin-bottom: 2rem; }
+        .scoping-note { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--silver); margin-top: 1.5rem; display: block; }
         .contact-cta { padding: 8rem 0; text-align: center; }
         .contact-cta h2 { font-family: 'DM Serif Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1.5rem; }
         .contact-cta p { font-size: 1.2rem; color: var(--ice); margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; }
@@ -79,8 +84,8 @@
         <section class="hero">
             <div class="container">
                 <div class="hero-eyebrow">AI Product Builder</div>
-                <h1>Building AI tools<br>that actually work.</h1>
-                <p class="hero-subtext">Designing and developing AI-powered products for marketing and business professionals.<br>Live products in production.<br>Select client work available.</p>
+                <h1>Removing the friction<br>of running a business.</h1>
+                <p class="hero-subtext">Practical AI tools for good people who want more time, better systems, and without the implementation headache.<br>Live products in production.<br>Select client work available.</p>
                 <a href="#contact" class="hero-cta">
                     Get in Touch
                     <span>→</span>
@@ -93,7 +98,7 @@
                 <div class="product-card">
                     <span class="product-tag">Live Product</span>
                     <h2>ThreadKiller AI</h2>
-                    <p>Turn email threads into instant clarity. Paste any email thread and get key decisions, action items, unresolved questions, and a one-sentence summary in 30 seconds. No inbox access required.</p>
+                    <p>Stop losing decisions in client email threads. ThreadKiller turns messy approval chains into clear decisions, action items, open questions, and a ready-to-send confirmation email in 30 seconds. No inbox access required.</p>
                     <a href="https://usethreadkiller.com" class="product-link" target="_blank">
                         Explore ThreadKiller
                         <span>→</span>
@@ -126,8 +131,10 @@
             <div class="container">
                 <h2>Focused on execution not hype.</h2>
                 <p>I'm Jessica Mitchell, an AI product builder based in the UK.</p>
-                <p>I design and develop AI-powered tools that solve real problems for real people.</p>
-                <p>My approach is simple: Identify a genuine pain point, build a solution that works, ship it live, and iterate based on real user feedback. No endless pitches, no vapourware, just working products.</p>
+                <p>I spent the better part of a year deep in the AI space — buying products, testing tools, and watching most of them fail to deliver on their promises. Support was an afterthought. The products were built to sell, not to work.</p>
+                <p>I nearly went down the route of offering AI services to businesses. Then I stopped and asked myself an honest question: is that working smart, or is that just building myself another job?</p>
+                <p>The answer was obvious. So instead of selling my time, I started building products that sell while I sleep — tools that free up time for the people using them, because that's exactly what I was looking for myself.</p>
+                <p>Three live products. More in development. No hype. No fluff. Just AI that does what it says.</p>
                 <div class="credentials">
                     <div class="credential-item">
                         <span class="credential-icon">✓</span>
@@ -143,7 +150,8 @@
 
         <section class="services">
             <div class="container">
-                <h2>Select AI Development Work</h2>
+                <h2>Work With Me</h2>
+                <p class="services-intro">I take on a small number of AI development projects alongside my own products. If you have a genuine problem that AI can solve, I'm interested in hearing about it.</p>
                 <div class="services-grid">
                     <div class="service-item">
                         <span class="service-icon">🔧</span>
@@ -161,25 +169,41 @@
                         <p>Identify opportunities where AI can solve real problems in your business, not just add buzzwords to your marketing.</p>
                     </div>
                 </div>
+                <div class="scoping-callout">
+                    <p>Before reaching out, the scoping form does the heavy lifting — it captures everything needed to assess fit, timeline, and budget without a back-and-forth intro call.</p>
+                    <p>Complete it honestly and you'll hear back within two business days. A 50% deposit is required before any work begins.</p>
+                    <a href="/ai-project-scoping.html" class="contact-button" style="border-color:var(--cyan);color:var(--cyan);">
+                        Start With the Scoping Form
+                        <span>→</span>
+                    </a>
+                    <span class="scoping-note">Currently accepting new project enquiries</span>
+                </div>
             </div>
         </section>
 
         <section class="contact-cta" id="contact">
             <div class="container">
                 <h2>Let's Talk</h2>
-                <p>Taking on select AI development projects and consulting work. Serious Enquiries Only.</p>
+                <p>Taking on select AI development projects and consulting work. Serious enquiries only.</p>
                 <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1rem;">
                     <a href="/ai-project-scoping.html" class="contact-button" style="border-color:var(--cyan);color:var(--cyan);">
                         Start a Project
                         <span>→</span>
                     </a>
                 </div>
-                <a href="/cdn-cgi/l/email-protection#2c44494040436c4145584f444940405f434059584543425f02435e4b" class="contact-button">
-                    <span class="__cf_email__" data-cfemail="a1c9c4cdcdcee1ccc8d5c2c9c4cdcdd2cecdd4d5c8cecfd28fced3c6">[email&#160;protected]</span>
+                <a href="mailto:hello@mitchellsolutions.org" class="contact-button">
+                    hello@mitchellsolutions.org
                     <span>→</span>
                 </a>
             </div>
         </section>
     </main>
 
-    <fo
+    <footer>
+        <div class="container">
+            <p>mitchellsolutions.org · hello@mitchellsolutions.org</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -474,11 +474,25 @@
             <select name="referral-source">
               <option value="" disabled selected>Select one</option>
               <option>LinkedIn</option>
+              <option>Twitter / X</option>
+              <option>Facebook</option>
               <option>Referral / Word of mouth</option>
               <option>Product Hunt</option>
               <option>ThreadKiller AI</option>
+              <option>OwnThatDomain</option>
+              <option>RecapHQ</option>
               <option>Google Search</option>
               <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <div class="field-label">Are you the decision maker on budget for this project? <span class="req">*</span></div>
+            <div class="field-hint">This helps understand how quickly a project can move forward.</div>
+            <select name="decision-maker" required>
+              <option value="" disabled selected>Select one</option>
+              <option>Yes — I have full authority to approve spend</option>
+              <option>No — I need sign-off from someone else</option>
+              <option>Shared decision — I'm one of two or more approvers</option>
             </select>
           </div>
         </div>
@@ -495,6 +509,11 @@
             <div class="field-label">What problem are you trying to solve? <span class="req">*</span></div>
             <div class="field-hint">Describe the actual business pain, not the solution you think you want.</div>
             <textarea name="problem" placeholder="e.g. We lose track of decisions made over email and it's costing us client relationships..." required></textarea>
+          </div>
+          <div class="field">
+            <div class="field-label">What is this problem currently costing you? <span class="req">*</span></div>
+            <div class="field-hint">Think in terms of time lost per week, revenue missed, or mistakes made. Be specific if you can.</div>
+            <textarea name="problem-cost" placeholder="e.g. 6 hours of manual work per week, one missed project handover per month costing approx £X..." required></textarea>
           </div>
           <div class="field">
             <div class="field-label">What does success look like? <span class="req">*</span></div>
@@ -586,8 +605,7 @@
               <div class="field-label">Budget range <span class="req">*</span></div>
               <select name="budget" required>
                 <option value="" disabled selected>Select one</option>
-                <option>Under £1,000</option>
-                <option>£1,000 – £3,000</option>
+                <option>£1,500 – £3,000</option>
                 <option>£3,000 – £7,500</option>
                 <option>£7,500 – £15,000</option>
                 <option>£15,000+</option>

@@ -20,25 +20,55 @@
         header { padding: 2rem 0; position: relative; z-index: 10; }
         .logo { font-family: 'IBM Plex Mono', monospace; font-size: 1rem; font-weight: 600; color: var(--white); letter-spacing: 0.1em; text-transform: uppercase; display: inline-block; padding: 0.5rem 1rem; border: 1px solid var(--steel); border-radius: 4px; background: rgba(17, 24, 39, 0.5); backdrop-filter: blur(10px); animation: fadeInDown 0.8s ease-out; }
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* HERO */
         .hero { padding: 8rem 0 6rem; position: relative; }
         .hero-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: var(--electric-blue); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2rem; opacity: 0; animation: fadeIn 1s ease-out 0.3s forwards; }
         @keyframes fadeIn { to { opacity: 1; } }
         .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; font-weight: 400; margin-bottom: 2rem; background: linear-gradient(135deg, var(--white) 0%, var(--ice) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; opacity: 0; animation: fadeInUp 1s ease-out 0.5s forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         .hero-subtext { font-size: clamp(1.1rem, 2vw, 1.4rem); color: var(--ice); max-width: 700px; margin-bottom: 3rem; font-weight: 300; opacity: 0; animation: fadeIn 1s ease-out 0.7s forwards; }
-        .hero-cta { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2rem; background: var(--electric-blue); color: var(--midnight); font-weight: 600; font-size: 1rem; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; transition: all 0.3s ease; opacity: 0; animation: fadeIn 1s ease-out 0.9s forwards; }
+        .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; animation: fadeIn 1s ease-out 0.9s forwards; }
+        .hero-cta { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2rem; background: var(--electric-blue); color: var(--midnight); font-weight: 600; font-size: 1rem; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; transition: all 0.3s ease; }
         .hero-cta:hover { background: var(--cyan); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3); }
+        .hero-cta-secondary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2rem; background: transparent; color: var(--white); font-weight: 600; font-size: 1rem; border: 2px solid var(--steel); border-radius: 6px; cursor: pointer; text-decoration: none; transition: all 0.3s ease; }
+        .hero-cta-secondary:hover { border-color: var(--electric-blue); color: var(--electric-blue); transform: translateY(-2px); }
+
+        /* PRODUCTS */
         .product-grid { padding: 6rem 0; }
         .product-grid .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; }
         .product-card { background: rgba(17, 24, 39, 0.6); border: 1px solid var(--steel); border-radius: 12px; padding: 3rem; backdrop-filter: blur(10px); position: relative; overflow: hidden; transition: all 0.4s ease; }
         .product-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--electric-blue), var(--cyan)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
         .product-card:hover::before { transform: scaleX(1); }
         .product-card:hover { transform: translateY(-5px); border-color: var(--electric-blue); box-shadow: 0 20px 60px rgba(59, 130, 246, 0.15); }
-        .product-tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--cyan); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.5rem; display: inline-block; }
+        .product-tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--cyan); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
+        .product-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--silver); letter-spacing: 0.05em; margin-bottom: 1rem; display: block; }
         .product-card h2 { font-family: 'DM Serif Display', serif; font-size: 2rem; margin-bottom: 1rem; color: var(--white); }
         .product-card p { color: var(--ice); margin-bottom: 2rem; line-height: 1.8; }
         .product-link { font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; color: var(--electric-blue); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: gap 0.3s ease; }
         .product-link:hover { gap: 1rem; }
+
+        /* CUSTOM BUILD SPRINT */
+        .build-sprint { padding: 6rem 0; }
+        .build-sprint-inner { background: rgba(59, 130, 246, 0.04); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 16px; padding: 4rem; position: relative; overflow: hidden; }
+        .build-sprint-inner::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--electric-blue), var(--cyan), var(--teal)); }
+        .build-sprint-tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--cyan); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.5rem; display: block; }
+        .build-sprint h2 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1.5rem; color: var(--white); }
+        .build-sprint-intro { font-size: 1.15rem; color: var(--ice); max-width: 780px; margin-bottom: 2.5rem; font-weight: 300; line-height: 1.9; }
+        .build-sprint-body { font-size: 1rem; color: var(--ice); max-width: 780px; margin-bottom: 1.5rem; font-weight: 300; line-height: 1.9; }
+        .build-sprint-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin: 3rem 0; }
+        .build-sprint-col h4 { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: var(--electric-blue); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+        .build-sprint-col p { color: var(--ice); font-size: 0.95rem; line-height: 1.8; font-weight: 300; }
+        .build-sprint-examples { background: rgba(6, 182, 212, 0.04); border: 1px solid rgba(6, 182, 212, 0.15); border-radius: 10px; padding: 2rem 2.5rem; margin-bottom: 2.5rem; max-width: 780px; }
+        .build-sprint-examples h4 { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: var(--electric-blue); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; }
+        .build-sprint-examples-intro { color: var(--ice); font-size: 0.95rem; font-weight: 300; margin-bottom: 1.25rem; line-height: 1.7; }
+        .build-sprint-examples ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+        .build-sprint-examples ul li { color: var(--frost); font-size: 0.95rem; font-weight: 300; line-height: 1.6; padding-left: 1.5rem; position: relative; }
+        .build-sprint-examples ul li::before { content: '→'; position: absolute; left: 0; color: var(--cyan); font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; }
+        .build-sprint-cta { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1.1rem 2.2rem; background: var(--electric-blue); color: var(--midnight); font-weight: 600; font-size: 1rem; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; transition: all 0.3s ease; }
+        .build-sprint-cta:hover { background: var(--cyan); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3); }
+
+        /* ABOUT */
         .about { padding: 6rem 0; max-width: 900px; margin: 0 auto; }
         .about h2 { font-family: 'DM Serif Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 2rem; background: linear-gradient(135deg, var(--white) 0%, var(--silver) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .about p { font-size: 1.2rem; color: var(--ice); margin-bottom: 1.5rem; font-weight: 300; line-height: 1.9; }
@@ -46,6 +76,8 @@
         .credential-item { display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 6px; }
         .credential-icon { font-size: 1.5rem; }
         .credential-text { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: var(--frost); }
+
+        /* SERVICES */
         .services { padding: 6rem 0; background: rgba(17, 24, 39, 0.3); margin: 4rem 0; border-top: 1px solid var(--steel); border-bottom: 1px solid var(--steel); }
         .services h2 { font-family: 'DM Serif Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1.5rem; text-align: center; }
         .services-intro { font-size: 1.2rem; color: var(--ice); text-align: center; max-width: 700px; margin: 0 auto 3rem; font-weight: 300; line-height: 1.8; }
@@ -58,18 +90,25 @@
         .scoping-callout p { color: var(--ice); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1rem; font-weight: 300; }
         .scoping-callout p:last-of-type { margin-bottom: 2rem; }
         .scoping-note { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--silver); margin-top: 1.5rem; display: block; }
+
+        /* CONTACT */
         .contact-cta { padding: 8rem 0; text-align: center; }
         .contact-cta h2 { font-family: 'DM Serif Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1.5rem; }
         .contact-cta p { font-size: 1.2rem; color: var(--ice); margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; }
         .contact-button { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1.25rem 2.5rem; background: transparent; color: var(--white); font-weight: 600; font-size: 1.1rem; border: 2px solid var(--electric-blue); border-radius: 6px; cursor: pointer; text-decoration: none; transition: all 0.3s ease; }
         .contact-button:hover { background: var(--electric-blue); color: var(--midnight); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3); }
+
         footer { padding: 3rem 0; text-align: center; border-top: 1px solid var(--steel); }
         footer p { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: var(--silver); letter-spacing: 0.05em; }
+
         @media (max-width: 768px) {
             .hero { padding: 4rem 0 3rem; }
+            .hero-ctas { flex-direction: column; }
             .product-grid .container { grid-template-columns: 1fr; }
             .credentials { flex-direction: column; }
             .services-grid { grid-template-columns: 1fr; }
+            .build-sprint-cols { grid-template-columns: 1fr; gap: 2rem; }
+            .build-sprint-inner { padding: 2.5rem 1.75rem; }
         }
     </style>
 </head>
@@ -81,24 +120,34 @@
     </header>
 
     <main>
+
+        <!-- HERO -->
         <section class="hero">
             <div class="container">
-                <div class="hero-eyebrow">AI Product Builder</div>
-                <h1>Removing the friction<br>of running a business.</h1>
-                <p class="hero-subtext">Practical AI tools for good people who want more time, better systems, without the implementation headache.<br>Live products in production.<br>Select client work available.</p>
-                <a href="#contact" class="hero-cta">
-                    Get in Touch
-                    <span>→</span>
-                </a>
+                <div class="hero-eyebrow">AI Product Studio</div>
+                <h1>AI Tools That Remove<br>Business Friction</h1>
+                <p class="hero-subtext">Live AI products plus custom AI builds for founders, teams, and service businesses wasting time on repeated admin, unclear decisions, or manual workflows.</p>
+                <div class="hero-ctas">
+                    <a href="#build-sprint" class="hero-cta">
+                        Request a Custom AI Build
+                        <span>→</span>
+                    </a>
+                    <a href="#products" class="hero-cta-secondary">
+                        Explore Live Products
+                        <span>→</span>
+                    </a>
+                </div>
             </div>
         </section>
 
-        <section class="product-grid">
+        <!-- LIVE PRODUCTS -->
+        <section class="product-grid" id="products">
             <div class="container">
                 <div class="product-card">
                     <span class="product-tag">Live Product</span>
+                    <span class="product-label">Email decision intelligence</span>
                     <h2>ThreadKiller AI</h2>
-                    <p>Stop losing decisions in client email threads. ThreadKiller turns messy approval chains into clear decisions, action items, open questions, and a ready-to-send confirmation email in 30 seconds.<br>No inbox access required.</p>
+                    <p>Stop losing decisions in client email threads. ThreadKiller turns messy approval chains into clear decisions, action items, open questions, and a ready-to-send confirmation email in 30 seconds. No inbox access required.</p>
                     <a href="https://usethreadkiller.com" class="product-link" target="_blank">
                         Explore ThreadKiller
                         <span>→</span>
@@ -107,8 +156,9 @@
 
                 <div class="product-card">
                     <span class="product-tag">Live Product</span>
+                    <span class="product-label">Domain acquisition strategy</span>
                     <h2>OwnThatDomain</h2>
-                    <p>A step-by-step domain negotiation tool for buyers who want a domain that's already taken.<br>Get AI-powered valuations, opening offer scripts, counter-offer coaching, and close guidance.<br>Stages 1 to 3 are free.</p>
+                    <p>A step-by-step domain negotiation tool for buyers who want a domain that's already taken. Get AI-powered valuations, opening offer scripts, counter-offer coaching, and close guidance. Stages 1 to 3 are free.</p>
                     <a href="https://ownthatdomain.com" class="product-link" target="_blank">
                         Explore OwnThatDomain
                         <span>→</span>
@@ -117,6 +167,7 @@
 
                 <div class="product-card">
                     <span class="product-tag">Live Product</span>
+                    <span class="product-label">Human-verified meeting intelligence</span>
                     <h2>RecapHQ</h2>
                     <p>Human-verified meeting intelligence for leadership teams. Send us your board meeting, strategy session, or client call and receive a structured briefing of commitments, conclusions, and accountability within hours. Permanent searchable archive included.</p>
                     <a href="https://getrecaphq.com" class="product-link" target="_blank">
@@ -127,12 +178,52 @@
             </div>
         </section>
 
+        <!-- CUSTOM AI BUILD SPRINT -->
+        <section class="build-sprint" id="build-sprint">
+            <div class="container">
+                <div class="build-sprint-inner">
+                    <span class="build-sprint-tag">Custom Build</span>
+                    <h2>Custom AI Build Sprint</h2>
+                    <p class="build-sprint-intro">For founders and businesses with one repeated workflow that costs time, attention, or money every week.</p>
+                    <p class="build-sprint-body">You bring the problem. MitchellSolutions identifies the bottleneck, designs the AI workflow, builds the working tool, and hands over a usable system your team can run from day one.</p>
+                    <p class="build-sprint-body">No vague AI advice. No endless discovery calls. Just a fixed-scope build with a clear output.</p>
+                    <div class="build-sprint-cols">
+                        <div class="build-sprint-col">
+                            <h4>Who this is for</h4>
+                            <p>Founders, agencies, and service businesses with one repeated process that costs time every week — approvals, intake, follow-up, reporting, decision tracking, client handovers, or anything that eats hours and produces inconsistent results.</p>
+                        </div>
+                        <div class="build-sprint-col">
+                            <h4>What you get</h4>
+                            <p>A working AI tool built around your exact workflow, not a generic template. MitchellSolutions scopes, builds, and delivers a usable system designed to reduce manual work from day one.</p>
+                        </div>
+                    </div>
+                    <p class="build-sprint-body" style="margin-bottom:2rem;">A 50% deposit is required before any build begins.</p>
+                    <div class="build-sprint-examples">
+                        <h4>Example AI Build Outcomes</h4>
+                        <p class="build-sprint-examples-intro">These are examples of the kinds of workflow problems MitchellSolutions can turn into usable AI tools:</p>
+                        <ul>
+                            <li>Qualify new enquiries against your service criteria and flag the opportunities worth pursuing</li>
+                            <li>Surface outstanding client feedback and flag what is still blocking delivery</li>
+                            <li>Turn completed projects into reusable case study drafts, structured and ready to edit</li>
+                            <li>Detect scope creep across client communications and summarise what has changed</li>
+                            <li>Track public client activity and flag service-relevant opportunities, risks, or follow-up triggers</li>
+                        </ul>
+                    </div>
+                    <a href="/ai-project-scoping.html" class="build-sprint-cta">
+                        Request a Custom AI Build
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
         <section class="about">
             <div class="container">
                 <h2>Focused on execution not hype.</h2>
                 <p>I'm Jessica Mitchell, an AI product builder based in the UK.</p>
                 <p>I design and develop AI-powered tools that solve real problems for real people.</p>
-                <p>My approach is simple: Identify a genuine pain point, build a solution that works, ship it live, and iterate based on real user feedback.<br>No endless pitches, no vapourware, just working products.</p>
+                <p>My approach is simple: identify a genuine pain point, build a solution that works, ship it live, and iterate based on real user feedback. No endless pitches, no vapourware, just working products.</p>
                 <p>I spent the better part of a year immersed in the AI ecosystem, stress-testing tools and identifying what actually moves beyond novelty into genuine utility. Throughout that process, I witnessed a recurring pattern: a market saturated with products designed to capture capital rather than solve user friction. In many cases, support was an afterthought, and the engineering was optimised for the sale, not the workflow.</p>
                 <p>After some time, I leaned toward the traditional path of high-level AI consultancy, however, I had to confront a fundamental question. Was I scaling a solution, or simply tethering my professional worth to the hours on a clock?</p>
                 <p>The realisation was immediate.</p>
@@ -150,6 +241,7 @@
             </div>
         </section>
 
+        <!-- SERVICES -->
         <section class="services">
             <div class="container">
                 <h2>Work With Me</h2>
@@ -158,7 +250,7 @@
                     <div class="service-item">
                         <span class="service-icon">🔧</span>
                         <h3>AI Tool Development</h3>
-                        <p>Custom AI-powered applications tailored to your specific business needs.<br>From concept to production deployment.</p>
+                        <p>Custom AI-powered applications tailored to your specific business needs. From concept to production deployment.</p>
                     </div>
                     <div class="service-item">
                         <span class="service-icon">🤖</span>
@@ -173,7 +265,7 @@
                 </div>
                 <div class="scoping-callout">
                     <p>Before reaching out, the scoping form does the heavy lifting by capturing everything needed to assess fit, timeline, and budget without a back-and-forth intro call.</p>
-                    <p>Complete it honestly and you'll hear back within two business days. A 50% deposit is required before any work begins.</p>
+                    <p>Complete it honestly and you'll hear back within two business days.</p>
                     <a href="/ai-project-scoping.html" class="contact-button" style="border-color:var(--cyan);color:var(--cyan);">
                         Start With the Scoping Form
                         <span>→</span>
@@ -183,6 +275,7 @@
             </div>
         </section>
 
+        <!-- CONTACT -->
         <section class="contact-cta" id="contact">
             <div class="container">
                 <h2>Let's Talk</h2>
@@ -199,6 +292,7 @@
                 </a>
             </div>
         </section>
+
     </main>
 
     <footer>
